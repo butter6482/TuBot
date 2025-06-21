@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "vue-router": "^4.5.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.8"
+  }
+}
