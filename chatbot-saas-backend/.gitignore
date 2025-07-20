@@ -1,0 +1,19 @@
+# Ignora archivos de entorno
+.env
+
+# Carpetas de caché
+__pycache__/
+*.py[cod]
+*.log
+
+# Entorno virtual
+.venv/
+env/
+
+# Configuración de IDEs
+.vscode/
+.idea/
+.DS_Store
+
+# Archivos del sistema
+Thumbs.db
