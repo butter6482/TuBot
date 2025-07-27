@@ -1,0 +1,49 @@
+/* PLEASE NOTE: THESE TAILWIND IMPORTS SHOULD NEVER BE DELETED */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+/* DO NOT DELETE THESE TAILWIND IMPORTS, OTHERWISE THE STYLING WILL NOT RENDER AT ALL */
+/* Custom animations */
+@keyframes float {
+  0% {
+    transform: translateY(-5px) translateX(0);
+  }
+  25% {
+    transform: translateY(0) translateX(5px);
+  }
+  50% {
+    transform: translateY(5px) translateX(0);
+  }
+  75% {
+    transform: translateY(0) translateX(-5px);
+  }
+  100% {
+    transform: translateY(-5px) translateX(0);
+  }
+}
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(140px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(140px) rotate(-360deg);
+  }
+}
+body {
+  background-color: black;
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: rgba(20, 30, 50, 0.5);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 255, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 255, 255, 0.5);
+}

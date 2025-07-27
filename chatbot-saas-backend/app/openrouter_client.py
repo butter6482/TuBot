@@ -1,43 +1,65 @@
-# app/routes/chatbot.py
+from fastapi import FastAPI, APIRouter, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel, Field
+from typing import List, Optional
+import logging
+from app.openrouter_client import OpenRouterClient
 
-from fastapi import APIRouter
-from pydantic import BaseModel
-import os
-import requests
-from dotenv import load_dotenv
+# Inicializar FastAPI
+app = FastAPI()
 
-load_dotenv()
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
-router = APIRouter()
+# Logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
-if not OPENROUTER_API_KEY:
-    raise ValueError("❌ OPENROUTER_API_KEY no está cargada. Verifica tu archivo .env.")
+# Inicializar Router y Cliente
+router = APIRouter(prefix="/chatbot", tags=["chatbot"])
+client = OpenRouterClient()
+
+# Modelos
+class ChatMessage(BaseModel):
+    role: str = Field(..., pattern="^(system|user|assistant)$")
+    content: str
 
 class ChatRequest(BaseModel):
-    messages: list
-    instructions: str
+    messages: List[ChatMessage]
+    instructions: str = Field(default="", max_length=1000)
+    model: str = Field(default="mistralai/mistral-7b-instruct")
 
-def llamar_a_openrouter(messages: list, instrucciones: str) -> str:
-    url = "https://openrouter.ai/api/v1/chat/completions"
-    headers = {
-        "Authorization": f"Bearer {OPENROUTER_API_KEY}",
-        "Content-Type": "application/json"
-    }
-    data = {
-        "model": "mistralai/mistral-7b-instruct",  # o prueba con: meta-llama/llama-3-8b-instruct
-        "messages": [
-            {"role": "system", "content": instrucciones},
-            *messages
-        ]
-    }
+class ChatResponse(BaseModel):
+    reply: str
+    model_used: str
+    tokens_used: Optional[int] = None
 
-    response = requests.post(url, headers=headers, json=data)
-    response.raise_for_status()
-
-    return response.json()["choices"][0]["message"]["content"]
-
-@router.post("/chatbot/message")
+# Endpoint principal
+@router.post("/message", response_model=ChatResponse)
 async def chatbot_message_route(data: ChatRequest):
-    respuesta = llamar_a_openrouter(data.messages, data.instructions)
-    return {"reply": respuesta}
+    try:
+        logger.info(f"Petición recibida para modelo: {data.model}")
+        response_data = await client.chat(
+            messages=[m.dict() for m in data.messages],
+            model=data.model,
+            instructions=data.instructions
+        )
+        return {
+            "reply": response_data["choices"][0]["message"]["content"],
+            "model_used": data.model,
+            "tokens_used": response_data.get("usage", {}).get("total_tokens")
+        }
+    except HTTPException as e:
+        raise e
+    except Exception as e:
+        logger.error(f"Error inesperado: {str(e)}")
+        raise HTTPException(status_code=500, detail="Error interno en el servidor")
+
+# Registrar router
+app.include_router(router)
