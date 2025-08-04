@@ -16,6 +16,7 @@ type ChatWindowProps = {
   onDelete: (id: string) => void;
   onUpdate: (bot: Bot) => void;
 };
+// ... same imports ...
 
 export const ChatWindow = ({
   bot,
@@ -25,7 +26,7 @@ export const ChatWindow = ({
 }: ChatWindowProps) => {
   const [messages, setMessages] = useState<Message[]>([{
     id: '1',
-    text: `¡Hola! Soy ${bot.name}. ¿En qué puedo ayudarte hoy?`,
+    text: `Hi! I'm ${bot.name}. How can I assist you today?`,
     sender: 'bot',
     timestamp: new Date()
   }]);
@@ -79,11 +80,11 @@ export const ChatWindow = ({
 
       if (!response.ok) {
         const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || 'Error en la respuesta del servidor');
+        throw new Error(errorData.detail || 'Server error');
       }
 
       const data = await response.json();
-      
+
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: data.reply,
@@ -96,7 +97,7 @@ export const ChatWindow = ({
       console.error('Error:', error);
       const errorMessage: Message = {
         id: (Date.now() + 1).toString(),
-        text: error instanceof Error ? error.message : 'Error al comunicarse con la IA',
+        text: error instanceof Error ? error.message : 'AI communication error',
         sender: 'bot',
         timestamp: new Date()
       };
@@ -124,7 +125,7 @@ export const ChatWindow = ({
     <div className="w-full max-w-4xl h-[80vh] bg-gray-900 rounded-lg border border-gray-800 flex flex-col overflow-hidden" style={{
       boxShadow: '0 0 20px rgba(0, 255, 255, 0.2)'
     }}>
-      {/* Header con selector de modelo */}
+      {/* Header with model selector */}
       <div className="p-4 flex items-center justify-between border-b border-gray-800" style={{
         background: 'linear-gradient(to right, rgba(10,20,40,0.9), rgba(20,30,60,0.9))',
         boxShadow: '0 2px 10px rgba(0,0,0,0.2)'
@@ -148,7 +149,7 @@ export const ChatWindow = ({
                 onClick={handleRename}
                 className="ml-2 text-xs bg-cyan-600 px-2 py-1 rounded hover:bg-cyan-500"
               >
-                Guardar
+                Save
               </button>
             </div>
           ) : (
@@ -170,19 +171,18 @@ export const ChatWindow = ({
           >
             <option value="mistralai/mistral-7b-instruct">Mistral 7B</option>
             <option value="openai/gpt-3.5-turbo">GPT-3.5 Turbo</option>
-
           </select>
           <button
             onClick={() => setIsRenaming(!isRenaming)}
             className="p-2 rounded-full hover:bg-gray-800"
-            title="Renombrar bot"
+            title="Rename bot"
           >
             <SettingsIcon className="w-5 h-5 text-gray-400 hover:text-cyan-400" />
           </button>
           <button
             onClick={() => onDelete(bot.id)}
             className="p-2 rounded-full hover:bg-gray-800"
-            title="Eliminar bot"
+            title="Delete bot"
           >
             <TrashIcon className="w-5 h-5 text-gray-400 hover:text-red-500" />
           </button>
@@ -223,7 +223,7 @@ export const ChatWindow = ({
                 <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></div>
                 <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse delay-100"></div>
                 <div className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse delay-200"></div>
-                <span>Pensando...</span>
+                <span>Thinking...</span>
               </div>
             </div>
           </div>
@@ -231,7 +231,7 @@ export const ChatWindow = ({
         <div ref={messagesEndRef} />
       </div>
 
-      {/* Input area */}
+      {/* Input */}
       <div className="p-4 border-t border-gray-800 bg-gray-900">
         <div className="flex space-x-2">
           <textarea
@@ -239,7 +239,7 @@ export const ChatWindow = ({
             onChange={e => setInput(e.target.value)}
             onKeyPress={handleKeyPress}
             className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none text-white"
-            placeholder="Escribe un mensaje..."
+            placeholder="Type your message..."
             rows={1}
             disabled={isLoading}
             style={{ minHeight: '44px' }}
@@ -252,7 +252,7 @@ export const ChatWindow = ({
                 ? 'bg-gray-800 cursor-not-allowed'
                 : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:shadow-lg hover:shadow-cyan-500/25'
             }`}
-            aria-label="Enviar mensaje"
+            aria-label="Send message"
           >
             <SendIcon className="w-5 h-5 text-white" />
           </button>

@@ -40,28 +40,28 @@ export const BotCreationModal = ({
           <XIcon className="w-5 h-5" />
         </button>
         <h2 className="text-2xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">
-          Crear Nuevo Bot
+          Create your Bot
         </h2>
         <form onSubmit={handleSubmit}>
           <div className="space-y-4">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-cyan-300 mb-1">
-                Nombre
+                Name
               </label>
-              <input type="text" id="name" value={name} onChange={e => setName(e.target.value)} className="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Nombre de tu bot" required />
+              <input type="text" id="name" value={name} onChange={e => setName(e.target.value)} className="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="TuBot Name" required />
             </div>
             <div>
               <label htmlFor="personality" className="block text-sm font-medium text-cyan-300 mb-1">
-                Personalidad e instrucciones
+                Personality and Instructions
               </label>
-              <textarea id="personality" value={personality} onChange={e => setPersonality(e.target.value)} className="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 min-h-[100px]" placeholder="Describe cómo quieres que sea tu bot..." />
+              <textarea id="personality" value={personality} onChange={e => setPersonality(e.target.value)} className="w-full bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 min-h-[100px]" placeholder="Describe your Bot..." />
             </div>
             <div>
               <label className="block text-sm font-medium text-cyan-300 mb-1">
-                Documentos de contexto
+                Context Documents
               </label>
               <div className="flex space-x-2">
-                <input type="text" value={documentName} onChange={e => setDocumentName(e.target.value)} className="flex-1 bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Nombre del documento" />
+                <input type="text" value={documentName} onChange={e => setDocumentName(e.target.value)} className="flex-1 bg-gray-800 border border-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Document Name" />
                 <button type="button" onClick={handleAddDocument} className="bg-gray-700 hover:bg-gray-600 p-2 rounded-md">
                   <UploadIcon className="w-5 h-5 text-cyan-400" />
                 </button>
@@ -78,10 +78,10 @@ export const BotCreationModal = ({
           </div>
           <div className="mt-6 flex justify-end">
             <button type="button" onClick={onClose} className="px-4 py-2 text-sm text-gray-300 hover:text-white">
-              Cancelar
+              Cancel
             </button>
             <button type="submit" className="ml-3 px-4 py-2 bg-gradient-to-r from-cyan-500 to-purple-600 text-white rounded-md hover:shadow-lg hover:shadow-cyan-500/25">
-              Crear Bot
+              Create Bot
             </button>
           </div>
         </form>

@@ -3,6 +3,7 @@
     "@tailwindcss/postcss": "^4.1.11"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.52.0"
+    "@supabase/supabase-js": "^2.52.0",
+    "styled-components": "^6.1.19"
   }
 }

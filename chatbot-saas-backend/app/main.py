@@ -99,3 +99,7 @@ app.include_router(router)
 @app.on_event("shutdown")
 async def shutdown_event():
     await client.aclose()
+
+@app.get("/")
+def root():
+    return {"message": "TuBot API está corriendo 🚀"}
