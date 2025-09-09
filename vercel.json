@@ -1,14 +1,14 @@
 {
+  "version": 2,
   "functions": {
-    "api/index.py": {
+    "api/**/*.py": {
       "runtime": "python3.11",
       "memory": 1024,
       "maxDuration": 10
     }
   },
-  "routes": [
-    { "src": "^/api/.*", "dest": "/api/index.py" },
-    { "src": "/(.*)", "dest": "/" }
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/" }
   ],
   "builds": [
     { "src": "chatbot-saas-frontend/Frontend/package.json", "use": "@vercel/static-build" }
@@ -17,4 +17,3 @@
   "buildCommand": "cd chatbot-saas-frontend/Frontend && npm run build",
   "outputDirectory": "chatbot-saas-frontend/Frontend/dist"
 }
-
