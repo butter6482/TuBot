@@ -1,17 +1,22 @@
-# TuBot – Plataforma SaaS para crear chatbots personalizados 🤖
+TuBot – SaaS platform to create personalized chatbots 🤖
 
-**Estado:** MVP funcional • **Frontend:** React + Vite + Tailwind 🎨 • **Backend:** FastAPI ⚡ • **Auth/DB:** Supabase 🗄️ • **LLM:** OpenRouter 🧠
+Status: MVP • Frontend: React + Vite + Tailwind 🎨 • Backend: FastAPI ⚡ • Auth/DB: Supabase 🗄️ • LLM: OpenRouter 🧠
 
-## ¿Qué es TuBot? 💡
+What is TuBot? 💡
 
-TuBot es una plataforma tipo SaaS que permite a cualquier persona crear un **chatbot personalizado** con su propio nombre y personalidad. El objetivo es que profesores, negocios o creadores puedan tener un bot que responda en su estilo.
+TuBot is a SaaS platform that allows anyone to create a personalized chatbot with their own name and personality. The goal is for teachers, businesses, or creators to have a bot that answers in their own style.
 
-## Features (MVP) ✨
+Features (MVP) ✨
 
-* 🔐 Autenticación con Supabase (email/password).
-* 👤 Chatbot único por usuario (el último bot creado reemplaza al anterior).
-* 🤖 LLM vía OpenRouter (modelo configurable; por defecto Mistral).
-* ⚙️ Backend en FastAPI con endpoint `/message` y persistencia de configuración del bot.
-* 🗄️ Base de datos Supabase con tabla `chatbots`.
-* 💻 Frontend en React + Vite + Tailwind con interfaz tipo ChatGPT.
+🔐 Authentication with Supabase (email/password).
+
+👤 One chatbot per user (the last created bot replaces the previous one).
+
+🤖 LLM via OpenRouter (configurable model; default Mistral).
+
+⚙️ FastAPI backend with /message endpoint and bot configuration persistence.
+
+🗄️ Supabase database with chatbots table.
+
+💻 React + Vite + Tailwind frontend with ChatGPT‑style interface.
 
