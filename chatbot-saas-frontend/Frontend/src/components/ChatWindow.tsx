@@ -60,7 +60,10 @@ export const ChatWindow = ({
     setIsLoading(true);
 
     try {
-      const data = await sendMessage(userMessage.text);
+      const data = await sendMessage(userMessage.text, {
+        model: selectedModel,
+        instructions: bot.description || ''
+      });
 
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),

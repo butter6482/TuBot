@@ -7,11 +7,9 @@
       "maxDuration": 10
     }
   },
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
-  ],
-  "builds": [
-    { "src": "chatbot-saas-frontend/Frontend/package.json", "use": "@vercel/static-build" }
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/" }
   ],
   "installCommand": "cd chatbot-saas-frontend/Frontend && npm ci",
   "buildCommand": "cd chatbot-saas-frontend/Frontend && npm run build",
