@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { Bot } from '../App';
 import { SendIcon, ArrowLeftIcon, SettingsIcon, TrashIcon } from 'lucide-react';
-import { sendMessageToBot } from '../lib/api';
+import { sendMessage } from '../lib/api';
 
 type Message = {
   id: string;
@@ -60,30 +60,8 @@ export const ChatWindow = ({
     setIsLoading(true);
 
     try {
-      const formattedMessages = updatedMessages.map(msg => ({
-        role: msg.sender === 'user' ? 'user' : 'assistant',
-        content: msg.text
-      }));
+      const data = await sendMessage(userMessage.text);
 
-      const response = await fetch('http://localhost:8000/chatbot/message', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          messages: formattedMessages,
-          instructions: bot.description || '',
-          model: selectedModel
-        })
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.detail || 'Error en la respuesta del servidor');
-      }
-
-      const data = await response.json();
-      
       const botMessage: Message = {
         id: (Date.now() + 1).toString(),
         text: data.reply,
