@@ -8,7 +8,6 @@ https://tubot-6tuf.onrender.com
 - 🔐 **Authentication with Supabase** (email/password).
 - 🤖 **Chat via OpenRouter** (configurable model; default *mistralai/mistral-7b-instruct*).
 - 🧠 **Session-only bot** (not persisted by default).  
-  *Optional:* enable persistence per user by setting `PERSISTENT_BOTS=true` and connecting Supabase.
 - ⚡ **FastAPI backend** with endpoints `/api/health` and `/api/chat` (and `/api/bot` if persistence is enabled).
 - 🎨 **React + Vite + Tailwind** frontend with a chat-style UI.
 - 🐳 **Single Docker container deployment** (Nginx serves the SPA and proxies to Uvicorn/FastAPI).
