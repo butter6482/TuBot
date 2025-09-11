@@ -1,23 +1,27 @@
-TuBot – SaaS platform to create personalized chatbots 🤖
+# TuBot — SaaS platform to create personalized chatbots 🤖
 
-Status: MVP • Frontend: React + Vite + Tailwind 🎨 • Backend: FastAPI ⚡ • Auth/DB: Supabase 🗄️ • LLM: OpenRouter 🧠
+**Status:** v1 (stable)  
+**Demo:** https://tubot-6tuf.onrender.com
 
-What is TuBot? 💡
+**TuBot** lets anyone create a chatbot with their **own name, personality, and instructions** so it replies in their style. It’s built for teachers, businesses, and creators who want a simple, fast conversational experience.
 
-TuBot is a SaaS platform that allows anyone to create a personalized chatbot with their own name and personality. The goal is for teachers, businesses, or creators to have a bot that answers in their own style.
+## What’s included
+- 🔐 **Authentication with Supabase** (email/password).
+- 🤖 **Chat via OpenRouter** (configurable model; default *mistralai/mistral-7b-instruct*).
+- 🧠 **Session-only bot** (not persisted by default).  
+  *Optional:* enable persistence per user by setting `PERSISTENT_BOTS=true` and connecting Supabase.
+- ⚡ **FastAPI backend** with endpoints `/api/health` and `/api/chat` (and `/api/bot` if persistence is enabled).
+- 🎨 **React + Vite + Tailwind** frontend with a chat-style UI.
+- 🐳 **Single Docker container deployment** (Nginx serves the SPA and proxies to Uvicorn/FastAPI).
 
-Features (MVP) ✨
+## Stack
+- **Frontend:** React + Vite + Tailwind  
+- **Backend:** FastAPI (Uvicorn)  
+- **Auth/DB:** Supabase (with RLS if you enable persistence)  
+- **LLM:** OpenRouter  
+- **Infra:** Nginx + Docker
 
-🔐 Authentication with Supabase (email/password).
-
-👤 One chatbot per user (the last created bot replaces the previous one).
-
-🤖 LLM via OpenRouter (configurable model; default Mistral).
-
-⚙️ FastAPI backend with /message endpoint and bot configuration persistence.
-
-🗄️ Supabase database with chatbots table.
-
-💻 React + Vite + Tailwind frontend with ChatGPT‑style interface.
-
-tubot-6tuf.onrender.com
+## How it works (flow)
+1. Sign in.
+2. Create your bot by entering a name and instructions (it’s kept for the session).
+3. Chat and tweak tone/model as you like.
