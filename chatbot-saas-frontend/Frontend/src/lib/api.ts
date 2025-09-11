@@ -1,52 +1,39 @@
-import { supabase } from "./supabase";
+type MsgObj = { message: string; instructions?: string; model?: string };
+type MsgOpts = { instructions?: string; model?: string };
 
-export async function sendMessage(
-  message: string,
-  opts?: { model?: string; instructions?: string }
-) {
-  // Prefer a direct backend URL if provided (local dev or external server),
-  // otherwise use the unified serverless route under /api/chat.
-  const directBase =
-    (import.meta as any).env?.VITE_BACKEND_URL ||
-    (import.meta as any).env?.VITE_API_BASE;
+export async function sendMessage(a: string | MsgObj, b?: MsgOpts) {
+  const payload: MsgObj =
+    typeof a === "string" ? { message: a, ...(b || {}) } : { ...a };
 
-  // Optional Supabase bearer for serverless API that reads user config
-  let authHeader: Record<string, string> = {};
+  // Fallback: usar bot efímero guardado en Session Storage
   try {
-    const { data } = await supabase.auth.getSession();
-    const token = data.session?.access_token;
-    if (token) authHeader = { Authorization: `Bearer ${token}` };
+    if (typeof window !== "undefined") {
+      const raw = window.sessionStorage.getItem("tubot.session.bot");
+      if (raw) {
+        const bot = JSON.parse(raw) as {
+          instructions?: string;
+          personality?: string;
+          model?: string;
+        };
+        const botInstructions = bot.instructions || bot.personality;
+        if (!payload.instructions && botInstructions) payload.instructions = botInstructions;
+        if (!payload.model && bot.model) payload.model = bot.model;
+      }
+    }
   } catch {}
 
-  const isDirect = typeof directBase === "string" && directBase.length > 0;
-
-  const url = isDirect
-    ? `${directBase.replace(/\/$/, "")}/chatbot/message`
-    : `/api/chat`;
-
-  const body = isDirect
-    ? // Backend FastAPI (chatbot-saas-backend/app/main.py)
-      {
-        model: opts?.model ?? "mistralai/mistral-7b-instruct",
-        instructions: opts?.instructions ?? "",
-        messages: [{ role: "user", content: message }],
-      }
-    : // Vercel serverless route (api/index.py)
-      {
-        message,
-        model: opts?.model,
-        instructions: opts?.instructions,
-      };
-
-  const res = await fetch(url, {
+  const res = await fetch(`/api/chat`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", ...authHeader },
-    body: JSON.stringify(body),
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
   });
 
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  return (await res.json()) as { reply: string; model_used?: string; tokens_used?: number };
+  return (await res.json()) as {
+    reply: string;
+    model_used?: string;
+    tokens_used?: number;
+  };
 }
 
-// Backward-compatible alias some components may expect
 export const sendMessageToBot = sendMessage;

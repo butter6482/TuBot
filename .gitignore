@@ -1,0 +1,64 @@
+# --- SO/editores ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+.python-version
+.venv/
+venv/
+env/
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.coverage
+coverage.xml
+
+# --- Node/JS ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+dist/
+build/
+.cache/
+
+# --- Vite/React (estructura de tu repo) ---
+chatbot-saas-frontend/Frontend/node_modules/
+chatbot-saas-frontend/Frontend/dist/
+
+# --- Variables de entorno (no subir nunca) ---
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# --- Vercel (IDs del proyecto y env locales) ---
+.vercel/
+.vercel/output/
+
+# --- Docker/otros ---
+*.log
+
+# === ignores básicos ===
+.env
+.env.*
+**/.env
+**/.env.*
+.vercel/
+node_modules/
+chatbot-saas-frontend/Frontend/node_modules/
+chatbot-saas-frontend/Frontend/dist/
+__pycache__/
+*.pyc
+dist/
+build/
+_from_image/

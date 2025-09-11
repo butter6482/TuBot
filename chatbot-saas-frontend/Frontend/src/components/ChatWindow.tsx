@@ -33,17 +33,30 @@ export const ChatWindow = ({ bot, onClose, onDelete, onUpdate }: ChatWindowProps
 
   const handleSendMessage = async () => {
     if (!input.trim() || isLoading) return;
+
     const userMessage: Message = { id: Date.now().toString(), text: input, sender: 'user', timestamp: new Date() };
-    const updated = [...messages, userMessage];
-    setMessages(updated);
+    setMessages(prev => [...prev, userMessage]);
     setInput('');
     setIsLoading(true);
+
     try {
-      const data = await sendMessage(userMessage.text, {
+      const instructions =
+        (bot as any).personality ||
+        (bot as any).description ||
+        '';
+
+      const data = await sendMessage({
+        message: userMessage.text,
         model: selectedModel,
-        instructions: (bot as any).description || '',
+        instructions,
       });
-      const botMessage: Message = { id: (Date.now() + 1).toString(), text: data.reply, sender: 'bot', timestamp: new Date() };
+
+      const botMessage: Message = {
+        id: (Date.now() + 1).toString(),
+        text: data.reply,
+        sender: 'bot',
+        timestamp: new Date(),
+      };
       setMessages(prev => [...prev, botMessage]);
     } catch (e) {
       console.error('Error:', e);
@@ -58,6 +71,7 @@ export const ChatWindow = ({ bot, onClose, onDelete, onUpdate }: ChatWindowProps
     if (newName.trim() && newName !== bot.name) onUpdate({ ...bot, name: newName });
     setIsRenaming(false);
   };
+
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSendMessage(); }
   };
@@ -70,23 +84,42 @@ export const ChatWindow = ({ bot, onClose, onDelete, onUpdate }: ChatWindowProps
           <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-800"><ArrowLeftIcon className="w-5 h-5 text-cyan-400" /></button>
           {isRenaming ? (
             <div className="flex items-center">
-              <input type="text" value={newName} onChange={e => setNewName(e.target.value)} className="bg-gray-800 border border-gray-700 rounded px-2 py-1 text-white" autoFocus onKeyDown={e => e.key === 'Enter' && handleRename()} onBlur={handleRename} />
+              <input
+                type="text"
+                value={newName}
+                onChange={e => setNewName(e.target.value)}
+                className="bg-gray-800 border border-gray-700 rounded px-2 py-1 text-white"
+                autoFocus
+                onKeyDown={e => e.key === 'Enter' && handleRename()}
+                onBlur={handleRename}
+              />
               <button onClick={handleRename} className="ml-2 text-xs bg-cyan-600 px-2 py-1 rounded hover:bg-cyan-500">Save</button>
             </div>
           ) : (
             <div className="flex items-center">
-              <div className="w-8 h-8 rounded-full mr-2 flex items-center justify-center" style={{ backgroundColor: 'rgba(10, 20, 40, 0.7)', boxShadow: `0 0 10px ${bot.color}, inset 0 0 5px ${bot.color}`, border: `1px solid ${bot.color}` }} />
+              <div
+                className="w-8 h-8 rounded-full mr-2 flex items-center justify-center"
+                style={{ backgroundColor: 'rgba(10, 20, 40, 0.7)', boxShadow: `0 0 10px ${bot.color}, inset 0 0 5px ${bot.color}`, border: `1px solid ${bot.color}` }}
+              />
               <h2 className="text-xl font-medium">{bot.name}</h2>
             </div>
           )}
         </div>
         <div className="flex items-center space-x-4">
-          <select value={selectedModel} onChange={e => setSelectedModel(e.target.value)} className="bg-gray-800 text-cyan-400 border border-gray-700 rounded px-2 py-1 text-sm">
+          <select
+            value={selectedModel}
+            onChange={e => setSelectedModel(e.target.value)}
+            className="bg-gray-800 text-cyan-400 border border-gray-700 rounded px-2 py-1 text-sm"
+          >
             <option value="mistralai/mistral-7b-instruct">Mistral 7B</option>
             <option value="openai/gpt-3.5-turbo">GPT-3.5 Turbo</option>
           </select>
-          <button onClick={() => setIsRenaming(!isRenaming)} className="p-2 rounded-full hover:bg-gray-800" title="Rename bot"><SettingsIcon className="w-5 h-5 text-gray-400 hover:text-cyan-400" /></button>
-          <button onClick={() => onDelete(bot.id)} className="p-2 rounded-full hover:bg-gray-800" title="Delete bot"><TrashIcon className="w-5 h-5 text-gray-400 hover:text-red-500" /></button>
+          <button onClick={() => setIsRenaming(!isRenaming)} className="p-2 rounded-full hover:bg-gray-800" title="Rename bot">
+            <SettingsIcon className="w-5 h-5 text-gray-400 hover:text-cyan-400" />
+          </button>
+          <button onClick={() => onDelete(bot.id)} className="p-2 rounded-full hover:bg-gray-800" title="Delete bot">
+            <TrashIcon className="w-5 h-5 text-gray-400 hover:text-red-500" />
+          </button>
         </div>
       </div>
 
@@ -94,9 +127,14 @@ export const ChatWindow = ({ bot, onClose, onDelete, onUpdate }: ChatWindowProps
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.map(m => (
           <div key={m.id} className={`flex ${m.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-            <div className={`max-w-[80%] rounded-lg px-4 py-2 ${m.sender === 'user' ? 'bg-gradient-to-r from-cyan-600 to-cyan-700 text-white' : 'bg-gray-800 text-gray-100 border border-gray-700'}`} style={m.sender === 'bot' ? { boxShadow: `0 0 10px rgba(0, 255, 255, 0.1)` } : {}}>
+            <div
+              className={`max-w-[80%] rounded-lg px-4 py-2 ${m.sender === 'user' ? 'bg-gradient-to-r from-cyan-600 to-cyan-700 text-white' : 'bg-gray-800 text-gray-100 border border-gray-700'}`}
+              style={m.sender === 'bot' ? { boxShadow: `0 0 10px rgba(0, 255, 255, 0.1)` } : {}}
+            >
               <p className="whitespace-pre-wrap">{m.text}</p>
-              <div className={`text-xs mt-1 ${m.sender === 'user' ? 'text-cyan-200' : 'text-gray-400'}`}>{m.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+              <div className={`text-xs mt-1 ${m.sender === 'user' ? 'text-cyan-200' : 'text-gray-400'}`}>
+                {m.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+              </div>
             </div>
           </div>
         ))}
@@ -118,8 +156,22 @@ export const ChatWindow = ({ bot, onClose, onDelete, onUpdate }: ChatWindowProps
       {/* Input area */}
       <div className="p-4 border-t border-gray-800 bg-gray-900">
         <div className="flex space-x-2">
-          <textarea value={input} onChange={e => setInput(e.target.value)} onKeyPress={handleKeyPress} className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none text-white" placeholder="Type a message..." rows={1} disabled={isLoading} style={{ minHeight: '44px' }} />
-          <button onClick={handleSendMessage} disabled={!input.trim() || isLoading} className={`p-3 rounded-full transition-all ${!input.trim() || isLoading ? 'bg-gray-800 cursor-not-allowed' : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:shadow-lg hover:shadow-cyan-500/25'}`} aria-label="Send message">
+          <textarea
+            value={input}
+            onChange={e => setInput(e.target.value)}
+            onKeyPress={handleKeyPress}
+            className="flex-1 bg-gray-800 border border-gray-700 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 resize-none text-white"
+            placeholder="Type a message..."
+            rows={1}
+            disabled={isLoading}
+            style={{ minHeight: '44px' }}
+          />
+          <button
+            onClick={handleSendMessage}
+            disabled={!input.trim() || isLoading}
+            className={`p-3 rounded-full transition-all ${!input.trim() || isLoading ? 'bg-gray-800 cursor-not-allowed' : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:shadow-lg hover:shadow-cyan-500/25'}`}
+            aria-label="Send message"
+          >
             <SendIcon className="w-5 h-5 text-white" />
           </button>
         </div>

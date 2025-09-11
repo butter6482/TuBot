@@ -10,6 +10,6 @@ export const CreateBotButton = ({
     boxShadow: '0 0 15px rgba(0, 255, 255, 0.5)'
   }}>
       <PlusIcon className="w-5 h-5 group-hover:rotate-90 transition-transform" />
-      <span className="font-medium">Crear tu Bot</span>
+      <span className="font-medium">Create your Bot</span>
     </button>;
 };

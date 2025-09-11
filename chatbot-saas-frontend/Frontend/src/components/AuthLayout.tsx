@@ -4,9 +4,9 @@ import { ArrowLeftIcon } from "lucide-react";
 type AuthLayoutProps = {
   children: React.ReactNode;
   onBack: () => void;
-  /** Si algún día quieres volver a mostrar decoraciones, ponlo en true */
+  /** Optional background decorations (disabled by default) */
   showDecor?: boolean;
-  /** Si algún día quieres volver a mostrar el logo arriba, ponlo en true */
+  /** Optional top logo (hidden by default) */
   showLogo?: boolean;
 };
 
@@ -14,43 +14,37 @@ export const AuthLayout = ({
   children,
   onBack,
   showDecor = false,
-  showLogo = false, // <-- por defecto: oculto
+  showLogo = false,
 }: AuthLayoutProps) => {
   return (
     <div className="w-full min-h-screen bg-black text-white flex flex-col items-center justify-center relative overflow-hidden">
-      {/* Fondo opcional (desactivado por defecto) */}
+      {/* Optional background (disabled by default) */}
       {showDecor && (
         <div
           className="absolute inset-0"
           style={{
-            backgroundImage:
-              "radial-gradient(rgba(50,50,100,0.3) 1px, transparent 1px)",
+            backgroundImage: "radial-gradient(rgba(50,50,100,0.3) 1px, transparent 1px)",
             backgroundSize: "30px 30px",
           }}
         />
       )}
 
-      {/* Botón volver */}
-      <button
-        onClick={onBack}
-        className="absolute top-4 left-4 p-2 flex items-center text-cyan-300 hover:text-white z-10"
-      >
+      {/* Back button */}
+      <button onClick={onBack} className="absolute top-4 left-4 p-2 flex items-center text-cyan-300 hover:text-white z-10">
         <ArrowLeftIcon className="w-5 h-5 mr-1" />
-        <span>Volver</span>
+        <span>Back</span>
       </button>
 
       {/* Card */}
       <div className="w-full max-w-md p-8 relative z-10">
-        {/* Logo arriba (oculto por defecto) */}
+        {/* Top logo (hidden by default) */}
         {showLogo && (
-          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-24 h-24">
-            {/* <TuBotLogo />  <-- si lo necesitas en el futuro, vuelve a importarlo y quita el comentario */}
-          </div>
+          <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-24 h-24">{/* <TuBotLogo /> */}</div>
         )}
         {children}
       </div>
 
-      {/* Lucecitas decorativas (ocultas por defecto) */}
+      {/* Decorative lights (hidden by default) */}
       {showDecor && (
         <>
           <div
@@ -66,3 +60,4 @@ export const AuthLayout = ({
     </div>
   );
 };
+
