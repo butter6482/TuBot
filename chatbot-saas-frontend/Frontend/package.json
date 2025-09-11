@@ -10,9 +10,11 @@
     "preview": "npx vite preview"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "lucide-react": "^0.441.0"
+    "lucide-react": "^0.441.0",
+    "pdfjs-dist": "^4.8.69"
   },
   "devDependencies": {
     "@types/node": "^20.11.18",

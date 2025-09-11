@@ -17,20 +17,15 @@ export const LandingPage = ({ onLogin, onSignup }: LandingPageProps) => {
             "url('https://uploadthingy.s3.us-west-1.amazonaws.com/x6oytuEoJemHChd9GBpdXt/7c31c03b3706341751888a0bb7d5b6b1.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
-          mixBlendMode: 'overlay'
+          mixBlendMode: 'overlay',
         }}
       ></div>
 
       {/* Header */}
       <header className="relative z-10 p-4 flex justify-between items-center">
-        <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">
-          TuBot
-        </div>
+        <div className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-purple-500">TuBot</div>
         <div className="flex space-x-4">
-          <button
-            onClick={onLogin}
-            className="px-4 py-2 text-cyan-300 hover:text-white transition-colors"
-          >
+          <button onClick={onLogin} className="px-4 py-2 text-cyan-300 hover:text-white transition-colors">
             Sign In
           </button>
           <button
@@ -57,16 +52,11 @@ export const LandingPage = ({ onLogin, onSignup }: LandingPageProps) => {
             <button
               onClick={onSignup}
               className="px-8 py-4 text-lg bg-gradient-to-r from-cyan-500 to-purple-600 rounded-full hover:shadow-lg hover:shadow-cyan-500/25 transition-all transform hover:scale-105"
-              style={{
-                boxShadow: '0 0 15px rgba(0, 255, 255, 0.5)'
-              }}
+              style={{ boxShadow: '0 0 15px rgba(0, 255, 255, 0.5)' }}
             >
               Start Today
             </button>
-            <button
-              onClick={onLogin}
-              className="px-8 py-4 text-lg border border-cyan-500 rounded-full hover:bg-cyan-900/20 transition-all"
-            >
+            <button onClick={onLogin} className="px-8 py-4 text-lg border border-cyan-500 rounded-full hover:bg-cyan-900/20 transition-all">
               Already a member?
             </button>
           </div>
@@ -74,25 +64,14 @@ export const LandingPage = ({ onLogin, onSignup }: LandingPageProps) => {
 
         {/* Features */}
         <div className="w-full max-w-5xl mx-auto grid md:grid-cols-3 gap-8 mt-16">
-          <FeatureCard
-            title="Total Customization"
-            description="Define your bot's personality, knowledge, and behavior according to your needs."
-          />
-          <FeatureCard
-            title="Easy Training"
-            description="Upload documents and content so your bot learns exactly what you need."
-          />
-          <FeatureCard
-            title="Natural Conversations"
-            description="Enjoy smooth dialogues and accurate responses adapted to your context."
-          />
+          <FeatureCard title="Total Customization" description="Define your bot's personality, knowledge, and behavior according to your needs." />
+          <FeatureCard title="Easy Training" description="Upload documents and content so your bot learns exactly what you need." />
+          <FeatureCard title="Natural Conversations" description="Enjoy smooth dialogues and accurate responses adapted to your context." />
         </div>
 
         {/* Floating TuBot Logo */}
         <div className="absolute bottom-10 right-10 opacity-50 hidden md:block">
-          <div className="w-40 h-40">
-            {/* Empty on purpose */}
-          </div>
+          <div className="w-40 h-40">{/* Empty on purpose */}</div>
         </div>
       </main>
 
@@ -111,14 +90,10 @@ type FeatureCardProps = {
 
 const FeatureCard = ({ title, description }: FeatureCardProps) => {
   return (
-    <div
-      className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all"
-      style={{
-        boxShadow: '0 0 20px rgba(0, 255, 255, 0.1)'
-      }}
-    >
+    <div className="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:border-cyan-500/50 transition-all" style={{ boxShadow: '0 0 20px rgba(0, 255, 255, 0.1)' }}>
       <h3 className="text-xl font-bold mb-3 text-cyan-300">{title}</h3>
       <p className="text-gray-300">{description}</p>
     </div>
   );
 };
+
