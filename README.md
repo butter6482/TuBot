@@ -17,9 +17,9 @@
 ## Stack
 - **Frontend:** React + Vite + Tailwind  
 - **Backend:** FastAPI (Uvicorn)  
-- **Auth/DB:** Supabase (with RLS if you enable persistence)  
+- **Auth/DB:** Supabase 
 - **LLM:** OpenRouter  
-- **Infra:** Nginx + Docker
+- **Infra:** Docker
 
 ## How it works (flow)
 1. Sign in.
