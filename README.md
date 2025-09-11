@@ -1,7 +1,6 @@
 # TuBot — SaaS platform to create personalized chatbots 🤖
 
-**Status:** v1 (stable)  
-**Demo:** https://tubot-6tuf.onrender.com
+https://tubot-6tuf.onrender.com
 
 **TuBot** lets anyone create a chatbot with their **own name, personality, and instructions** so it replies in their style. It’s built for teachers, businesses, and creators who want a simple, fast conversational experience.
 
