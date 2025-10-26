@@ -1,25 +1,81 @@
-# TuBot — SaaS platform to create personalized chatbots 🤖
+🤖 TuBot – AI Chatbot SaaS Platform
 
-https://tubot-6tuf.onrender.com
 
-**TuBot** lets anyone create a chatbot with their **own name, personality, and instructions** so it replies in their style. It’s built for teachers, businesses, and creators who want a simple, fast conversational experience.
 
-## What’s included
-- 🔐 **Authentication with Supabase** (email/password).
-- 🤖 **Chat via OpenRouter** (configurable model; default *mistralai/mistral-7b-instruct*).
-- 🧠 **Session-only bot** (not persisted by default).  
-- ⚡ **FastAPI backend** with endpoints `/api/health` and `/api/chat` (and `/api/bot` if persistence is enabled).
-- 🎨 **React + Vite + Tailwind** frontend with a chat-style UI.
-- 🐳 **Single Docker container deployment** (Nginx serves the SPA and proxies to Uvicorn/FastAPI).
 
-## Stack
-- **Frontend:** React + Vite + Tailwind  
-- **Backend:** FastAPI (Uvicorn)  
-- **Auth/DB:** Supabase 
-- **LLM:** OpenRouter  
-- **Infra:** Docker
 
-## How it works (flow)
-1. Sign in.
-2. Create your bot by entering a name and instructions (it’s kept for the session).
-3. Chat and tweak tone/model as you like.
+
+
+
+
+
+
+
+A SaaS platform that lets users create and customize their own AI-powered chatbots using FastAPI, React + Vite, Supabase, and OpenRouter.
+Deployed on Render → 🌐 tubot.onrender.com
+
+✨ Features
+
+Personalized AI chatbots per user
+
+Authentication and database via Supabase
+
+OpenRouter integration (Mistral / GPT)
+
+File upload support for fine-tuning
+
+Persistent bot settings and chat history
+
+Dockerized setup with Nginx + Supervisord
+
+CI/CD with GitHub Actions
+
+⚙️ Quick Start
+git clone https://github.com/butter6482/TuBot.git
+cd TuBot
+docker build -t tubot .
+docker run -p 8080:8080 tubot
+# open: http://localhost:8080
+
+🧰 Tech Stack
+
+Languages
+
+
+
+
+
+
+Frameworks & Libraries
+
+
+
+
+
+
+
+
+AI / Data Science
+
+
+
+
+Database & Auth
+
+
+DevOps & Tools
+
+
+
+
+
+
+
+
+👨‍💻 Author
+
+Alejandro Butter Chaparro
+📍 Puerto Rico
+🎓 Computer Science @ Interamericana – Aguadilla
+🔗 LinkedIn
+ | GitHub
