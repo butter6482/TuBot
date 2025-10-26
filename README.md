@@ -1,81 +1,36 @@
-🤖 TuBot – AI Chatbot SaaS Platform
+🤖 TuBot – AI Chatbot Creation Platform
 
+https://tubot-6tuf.onrender.com
 
+TuBot allows anyone to create a personalized AI chatbot with their own name, personality, and instructions, so it responds in their unique style.
+Designed for teachers, students, businesses, and creators who want a simple, fast conversational tool powered by AI.
 
+✨ What’s Included
 
+🔐 Authentication with Supabase (email/password)
 
+🤖 Chat via OpenRouter (default model: mistralai/mistral-7b-instruct)
 
+🧠 Session-based chatbot (can be persisted per user)
 
+⚡ FastAPI backend with endpoints /api/health, /api/chat, and /api/bot
 
+🎨 React + Vite + Tailwind frontend with modern chat UI
 
-
-
-
-A SaaS platform that lets users create and customize their own AI-powered chatbots using FastAPI, React + Vite, Supabase, and OpenRouter.
-Deployed on Render → 🌐 tubot.onrender.com
-
-✨ Features
-
-Personalized AI chatbots per user
-
-Authentication and database via Supabase
-
-OpenRouter integration (Mistral / GPT)
-
-File upload support for fine-tuning
-
-Persistent bot settings and chat history
-
-Dockerized setup with Nginx + Supervisord
-
-CI/CD with GitHub Actions
-
-⚙️ Quick Start
-git clone https://github.com/butter6482/TuBot.git
-cd TuBot
-docker build -t tubot .
-docker run -p 8080:8080 tubot
-# open: http://localhost:8080
+🐳 Single Docker container (Nginx + Uvicorn/FastAPI)
 
 🧰 Tech Stack
 
-Languages
+Frontend: React + Vite + Tailwind
+Backend: FastAPI (Uvicorn)
+Auth / Database: Supabase
+LLM Provider: OpenRouter
+Infrastructure: Docker + Nginx
 
+⚙️ How It Works
 
+Sign in with your Supabase account.
 
+Create a bot by adding a name and custom instructions.
 
-
-
-Frameworks & Libraries
-
-
-
-
-
-
-
-
-AI / Data Science
-
-
-
-
-Database & Auth
-
-
-DevOps & Tools
-
-
-
-
-
-
-
-
-👨‍💻 Author
-
-Alejandro Butter Chaparro
-📍 Puerto Rico
-🎓 Computer Science @ Interamericana – Aguadilla
-🔗 LinkedIn
- | GitHub
+Chat, adjust tone or model, and get responses tailored to your style.
