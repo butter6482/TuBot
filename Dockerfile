@@ -1,5 +1,5 @@
 ﻿# ===== Stage 1: build del frontend =====
-FROM node:18-alpine AS fe
+FROM node:22-alpine AS fe
 WORKDIR /fe
 COPY chatbot-saas-frontend/Frontend/package*.json ./
 RUN npm ci || npm install

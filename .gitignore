@@ -1,78 +1,39 @@
-# --- SO/editores ---
-.DS_Store
-Thumbs.db
-.vscode/
-.idea/
+# Secrets and local env (never commit; .env.example is the template)
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
 
-# --- Python ---
+# Python
 __pycache__/
 *.py[cod]
-*.pyo
-*.pyd
-*.egg-info/
-.eggs/
-.python-version
 .venv/
 venv/
 env/
-pip-wheel-metadata/
 .pytest_cache/
 .mypy_cache/
 .coverage
 coverage.xml
+*.egg-info/
 
-# --- Node/JS ---
+# Node / frontend
 node_modules/
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
 dist/
 build/
 .cache/
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
 
-# --- Vite/React (estructura de tu repo) ---
-chatbot-saas-frontend/Frontend/node_modules/
-chatbot-saas-frontend/Frontend/dist/
-
-# --- Variables de entorno (no subir nunca) ---
-.env
-.env.*
-!.env.example
-!**/.env.example
-
-# --- Vercel (IDs del proyecto y env locales) ---
+# Vercel
 .vercel/
-.vercel/output/
 
-# --- Docker/otros ---
+# Editors / OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
 *.log
-
-# === ignores básicos ===
-.env
-.env.*
-**/.env
-**/.env.*
-.vercel/
-node_modules/
-chatbot-saas-frontend/Frontend/node_modules/
-chatbot-saas-frontend/Frontend/dist/
-__pycache__/
-*.pyc
-dist/
-build/
-_from_image/
-
-.env
-.env.*
-**/.env
-**/.env.*
-.vercel/
-node_modules/
-chatbot-saas-frontend/Frontend/node_modules/
-chatbot-saas-frontend/Frontend/dist/
-__pycache__/
-*.pyc
-dist/
-build/
 _from_image/
